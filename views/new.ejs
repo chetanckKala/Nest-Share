@@ -1,0 +1,47 @@
+<% layout("./layouts/boilerplate.ejs") %>
+
+<body>
+
+    <div class="row offset-md-3  offset-1">
+    <form class="col-md-8  col-11" method="post" action="/listings">
+
+        <div class="mb-3">
+            <label class="form-label" for="title">Title </label>
+            <input class="form-control" name="title" type="text" placeholder="Taj Hotel" id="title" >
+        </div>
+
+        <div class="row">
+            <div class="mb-3 col">
+                <label class="form-label" for="location">Location </label>
+                <input class="form-control" name="location" type="text" placeholder="Mumbai" id="location" >
+            </div>
+    
+            <div class="mb-3 col">
+                <label class="form-label" for="country">Country </label>
+                <input class="form-control" name="country" type="text" placeholder="India" id="country" >
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="price">Price </label>
+            <input class="form-control" name="price" type="text" placeholder="10000" id="price" >
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="description">Description </label>
+            <textarea class="form-control" name="description" id="description" placeholder="A luxarious hotel..."></textarea>
+        </div>
+
+        <div class="mb-5">
+            <label class="form-label" for="image">Image URL </label>
+            <input class="form-control" name="image" type="url" placeholder="image url" id="image" >
+        </div>
+
+
+
+        <button class="btn btn-primary mb-5" style="background-color: #0b8661;">Add</button>
+        <!-- <label for=""></label><input type="text" placeholder="title"><br><br> -->
+    </form>
+    </div>
+    
+</body>

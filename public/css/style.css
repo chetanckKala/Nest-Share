@@ -1,0 +1,120 @@
+@font-face {
+    font-family: bnb_light;
+    src: url("../assets/AirbnbCereal_W_Bk.otf");
+}
+
+@font-face {
+    font-family: bnb_bold;
+    src: url("../assets/AirbnbCereal_W_Bd.otf");
+}
+
+/* to place footer in bottom */
+body
+{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container
+{
+    flex: 1;
+}
+/* to place footer in bottom */
+
+
+
+*
+{
+    font-family: bnb_light;
+}
+
+.navbar
+{
+    background-color: white;
+}
+
+.navbar a
+{
+    font-family: bnb_bold;
+}
+
+.nav-link
+{
+    color: black;
+}
+
+/* ------------------------------------------------------------------ */
+footer
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: brown; */
+    height: 6rem;
+}
+
+.left
+{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    /* background-color: aquamarine; */
+}
+
+.left p
+{
+    margin: 0;
+}
+
+.left a
+{
+    text-decoration: none;
+    color: black;
+}
+
+.right
+{
+    display: flex;
+    gap: 1rem;
+    
+    /* background-color: yellow; */
+}
+
+.right i
+{
+    font-size: 1.5rem;
+    color: black;
+}
+
+
+/* ------------------------------------------------------------------ */
+
+.card
+{
+    border: 0;
+    
+}
+
+.card-body a
+{
+    text-decoration: none; 
+    
+}
+
+/* .card-img-overlay:hover
+{
+    background-color: white;
+    opacity: 0.3;
+    transition:ease-in;
+    transition-duration: 500ms;
+} */
+
+#show
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+

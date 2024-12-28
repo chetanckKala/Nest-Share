@@ -1,0 +1,26 @@
+<% layout("./layouts/boilerplate.ejs") %>
+
+<body>
+    <!-- <h1>All listings</h1> -->
+
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for( let item of result ) { %>
+    
+        <div class="card mb-5" >
+            
+            <a href="/listings/<%= item._id %>"><img style="aspect-ratio: 11/7; object-fit: cover;"  class="mt-3 rounded-4 card-img" src=<%= item.image %> alt=""></a>
+            
+            <div class="card-body">
+                <a style="color: rgb(24, 24, 24);" href="/listings/<%= item._id %>"><h5 class="card-title"><strong><%= item.title %></strong></h5></a>
+                <a style="color: rgb(99, 99, 99);" href="https://www.google.com/maps/place/<%= item.location %>"><h6 class="card-subtitle mb-3"><i class="fa-solid fa-location-dot" style="color: #ff385c;"></i>  &nbsp;<%= item.location %>, <%= item.country %></h6></a>
+                
+    
+                <button class="btn btn-sm rounded-3 btn-outline-dark">₹ <%= item.price %> /night</button>
+            </div>
+
+        </div>
+
+    <% } %>
+    </div>
+
+</body>
