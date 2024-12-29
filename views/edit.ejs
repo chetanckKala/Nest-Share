@@ -5,28 +5,33 @@
 <body>
 
     <div class="row offset-md-3  offset-1">
-    <form class="col-md-8  col-11" method="post" action="/listings/<%= item._id %>?_method=patch">
+    <form class="col-md-8  col-11 needs-validation" method="post" action="/listings/<%= item._id %>?_method=patch" novalidate>
 
         <div class="mb-3">
-            <label class="form-label" for="title">Title </label>
-            <input class="form-control" name="title" type="text" value="<%= item.title %>" id="title" >
+            <label class="form-label" for="title">Title <span style="color: red;"> *</span></label>
+            <input class="form-control" name="title" type="text" value="<%= item.title %>" id="title" required>
+            <div class="invalid-feedback">Please enter a title</div>
         </div>
 
         <div class="row">
             <div class="mb-3 col">
-                <label class="form-label" for="location">Location </label>
-                <input class="form-control" name="location" type="text" value="<%= item.location %>" id="location" >
+                <label class="form-label" for="location">Location <span style="color: red;"> *</span></label>
+                <input class="form-control" name="location" type="text" value="<%= item.location %>" id="location" required>
+                <div class="invalid-feedback">Please give location</div>
+
             </div>
     
             <div class="mb-3 col">
-                <label class="form-label" for="country">Country </label>
-                <input class="form-control" name="country" type="text" value="<%= item.country %>" id="country" >
+                <label class="form-label" for="country">Country <span style="color: red;"> *</span></label>
+                <input class="form-control" name="country" type="text" value="<%= item.country %>" id="country" required>
+                <div class="invalid-feedback">Please give country</div>
             </div>
         </div>
 
         <div class="mb-3">
-            <label class="form-label" for="price">Price </label>
-            <input class="form-control" name="price" type="text" value="<%= item.price %>" id="price" >
+            <label class="form-label" for="price">Price <span style="color: red;"> *</span></label>
+            <input class="form-control" name="price" type="text" value="<%= item.price %>" id="price" required>
+            <div class="invalid-feedback">Please enter price</div>
         </div>
 
         <div class="mb-3">

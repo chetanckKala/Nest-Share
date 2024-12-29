@@ -18,7 +18,7 @@
             <a style="color: rgb(99, 99, 99);" href="https://www.google.com/maps/place/<%= item.location %>"><h6 class="card-subtitle mb-3"><i class="fa-solid fa-location-dot" style="color: #ff385c;"></i>  &nbsp;<%= item.location %>, <%= item.country %></h6></a>
             <p class="card-text"><%= item.description %></p>
 
-            <button class="btn btn-outline-dark">₹ <%= item.price %></button>
+            <button class="btn btn-outline-dark">₹ <%= item.price.toLocaleString() %></button>
         </div>
     </div>
     </div>

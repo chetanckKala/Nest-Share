@@ -7,6 +7,10 @@ const path = require("path")
 const methodOverride = require("method-override")
 const Listing = require("./models/listing")
 const ejsMate = require("ejs-mate")
+const ExpressError = require("./utils/error.js")
+const wrapAsync = require("./utils/wrapAsync.js")
+const listingSchema = require("./schema.js")
+const { func } = require("joi")
 
 
 // server start
@@ -31,73 +35,140 @@ app.use(methodOverride("_method"))
 app.engine("ejs", ejsMate)
 
 
+// ----------------------------------------------------------------------------------------
+function validateSchema (req, res, next)
+{
+    const { error } = listingSchema.validate(req.body)
+    if (error)
+        throw new ExpressError(400, error.details[0].message)
+
+    else
+        next()
+}
+
 
 // ----------------------------------------------------------------------------------------
 
 
 // home route
-app.get("/", async (req, res)=>
-{
-    res.render("home.ejs")
-})
+app.get
+(   
+    "/",
+    wrapAsync(async (req, res)=>
+    {
+        res.render("home.ejs")
+    })
+)
 
 
 // listings route
-app.get("/listings", async (req, res)=>
-{
-    const result = await Listing.find({})
-    res.render("listing.ejs", {result})
-})
+app.get
+( 
+    "/listings",
+    wrapAsync(async (req, res)=>
+    {
+        const result = await Listing.find({})
+        res.render("listing.ejs", {result})
+    })
+)
 
 
 // create route
-app.get("/listings/new", (req, res)=>
-{
-    res.render("new.ejs")
-})
+app.get
+(
+    "/listings/new",
+    (req, res)=>
+    {
+        res.render("new.ejs")
+    }
+)
 
 
 // post route
-app.post("/listings", async (req, res)=>
-{
-    const item = new Listing(req.body)
-    await item.save()
-    res.redirect("/listings")
-})
+app.post
+(
+    "/listings", 
+    validateSchema,
+    wrapAsync(async (req, res, next)=>
+    {
+        const item = new Listing(req.body)
+        await item.save()
+        res.redirect("/listings")
+    })
+)
 
 
 // show route
-app.get("/listings/:id", async (req, res)=>
-{
-    const item = await Listing.findById(req.params.id)
-    res.render("show.ejs", {item})
-})
+app.get
+(
+    "/listings/:id", 
+    wrapAsync(async (req, res)=>
+    {
+        const item = await Listing.findById(req.params.id)
+        res.render("show.ejs", {item})
+    })
+)
 
 
 // edit route
-app.get("/listings/:id/edit", async (req, res)=>
-{
-    const item = await Listing.findById(req.params.id)
-    res.render("edit.ejs", {item})
-    // res.send("hi")
-})
+app.get
+(
+    "/listings/:id/edit", 
+    wrapAsync(async (req, res)=>
+    {
+        const item = await Listing.findById(req.params.id)
+        res.render("edit.ejs", {item})
+        // res.send("hi")
+    })
+)
 
 
 // update route
-app.patch("/listings/:id", async (req, res)=>
-{
-    const item = await Listing.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    res.redirect(`/listings/${item._id}`)
-    // res.send("working")
-})
+app.patch
+(
+    "/listings/:id", 
+    validateSchema,
+    wrapAsync(async (req, res, next)=>
+    {
+        const item = await Listing.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
+        res.redirect(`/listings/${item._id}`)
+    })
+)
 
 
 // delete route
-app.delete("/listings/:id", async (req, res)=>
-{
-    const item = await Listing.findByIdAndDelete(req.params.id)
-    res.redirect("/listings")
-    // res.send("working")
-})
+app.delete
+(
+    "/listings/:id", 
+    wrapAsync(async (req, res)=>
+    {
+        const item = await Listing.findByIdAndDelete(req.params.id)
+        res.redirect("/listings")
+        // res.send("working")
+    })
+)
+
+
+// ----------------------------------------------------------------------------------------------------------------------
+
+app.all
+(   
+    "*", 
+    (req, res, next)=>
+    {
+        const err = new ExpressError(404, "page not found")
+        next(err)
+    }
+)
+
+app.use
+(
+    (err, req, res, next)=>
+    {
+        let {status=500, message="error occured"} = err
+        console.log(status, message)
+        res.status(status).render("error.ejs", {err})
+    }
+)
 
 
