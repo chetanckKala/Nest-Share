@@ -118,3 +118,16 @@ footer
     align-items: center;
 }
 
+.btn
+{
+    padding: 0.2rem 0.8rem;
+}
+
+#review img
+{
+    border: 0px solid black;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}

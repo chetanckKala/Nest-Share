@@ -2,6 +2,7 @@
 
 <body>
 
+    <!-- edit/ delete buttons -->
     <div class="row offset-md-3  offset-1">
     <div class="d-flex gap-2 mb-3 col-md-8  col-11">
         <form method="get" action="/listings/<%= item._id %>/edit"> <button class="btn btn-success">Edit</button> </form><br>
@@ -9,17 +10,68 @@
     </div>
     </div>
   
+    <!-- hotel details -->
     <div class="row offset-md-3 offset-md-3 offset-1">
     <div class="col-md-8 col-11 card mb-3  ">
-        <img style="aspect-ratio: 11/7; object-fit: cover;"  class="card-img-top" src=<%= item.image %> alt="">
+        <h3 class="card-title"><strong><%= item.title %></strong></h3>
+
+        <img style="aspect-ratio: 11/7; object-fit: cover;"  class="card-img-top rounded-3" src=<%= item.image %> alt="">
         
         <div class="card-body">
-            <h3 class="card-title"><%= item.title %></h3>
             <a style="color: rgb(99, 99, 99);" href="https://www.google.com/maps/place/<%= item.location %>"><h6 class="card-subtitle mb-3"><i class="fa-solid fa-location-dot" style="color: #ff385c;"></i>  &nbsp;<%= item.location %>, <%= item.country %></h6></a>
             <p class="card-text"><%= item.description %></p>
 
             <button class="btn btn-outline-dark">₹ <%= item.price.toLocaleString() %></button>
         </div>
+    </div>
+    </div>
+
+    <hr>
+
+    <!-- review show -->
+    <div class="row gap-5">
+    <% for (const review of item.reviews) { %>
+
+        <div class="card col-5" id="review">
+            <div class="card-body ">
+                <div class="d-flex align-items-center gap-3 mb-2 ">
+                    <img class="" src="https://evocdn.net/ppwh/pornpics/1/files/1a23/54cb/bdd8/1e3c/0a2b/f369/a3f5/97c1/1.jpg" alt="">
+                    <h5 class="card-title">John Doe <br><span class="fs-6 lh-sm">5 years</span></h5>
+                </div>
+
+                <h6 class="card-subtitle fw-semibold  mb-2 text-body-secondary">Rating: <%= review.rating %>/5</h6>
+                <p class="card-text">"<%= review.comment %>"</p>
+            
+                <form method="post" action="/listings/<%= item._id %>/review/<%= review._id %>?_method=delete"><button class="btn btn-xm btn-outline-danger">Delete</button></form>
+            </div>
+        </div>
+
+    <% } %>
+    </div>
+
+    <hr>
+
+    <!-- review add -->
+    <div class="row offset-md-3  offset-1">
+    <div class="mb-3 col-md-8  col-11">
+        <h3 class=""><strong>Write a review</strong></h3>
+
+        <form class="needs-validation" method="post" action="/listings/<%= item._id %>/review" novalidate>
+            <div>
+                <label class="form-label" for="rating">
+                    Rating <span style="color: red;"><strong> *</strong></span>
+                </label>
+                <input name="rating" class="form-range" type="range" id="rating" min="1" max="5" required>
+            </div>
+
+            <div>
+                <label class="form-label" for="comment">Comment</label>
+                <textarea class="form-control" name="comment" id="comment" placeholder="write here..." rows="3" required></textarea>
+                <div class="invalid-feedback">Please fill this field</div>
+            </div>
+
+            <button class="mt-3 btn btn-danger">Post</button>
+        </form>
     </div>
     </div>
     

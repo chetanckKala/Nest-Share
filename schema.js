@@ -8,8 +8,13 @@ const listingSchema = joi.object(
         description: joi.string().required(),
         location: joi.string().required(),
         country: joi.string().required(),
-        image: joi.string().allow("", null)
+        image: joi.string().allow("", null),
     }
 )
 
-module.exports = listingSchema
+const reviewSchema = joi.object({
+    rating: joi.number().required().min(1).max(5),
+    comment: joi.string().required(),
+})
+
+module.exports = {listingSchema, reviewSchema}
