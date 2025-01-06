@@ -1,0 +1,19 @@
+<% layout("./layouts/boilerplate.ejs") %>
+
+<body>
+
+    <div
+    style="height: 70vh; flex-direction: column;"
+    class="container d-flex justify-content-center align-items-center">
+    <h4 class="mb-3"><b>Login here</b></h4>
+    <form class="card border p-4" method="post" action="/users/login">
+
+        <div><input name="username" class="form-control mb-3" type="text" placeholder="Username"></div>
+        <div><input name="password" class="form-control mb-3" type="password" placeholder="Password"></div>
+
+        <button class="btn btn-dark">Log in</button>
+        
+    </form>
+    </div>
+
+</body>

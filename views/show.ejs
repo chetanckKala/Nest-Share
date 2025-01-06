@@ -3,10 +3,17 @@
 <body>
 
     <!-- edit/ delete buttons -->
-    <div class="row offset-md-3  offset-1">
-    <div class="d-flex gap-2 mb-3 col-md-8  col-11">
+    <div class="row offset-md-3 mb-3 offset-1">
+    <% if (currUser && currUser._id.equals(item.owner._id)) { %>
+    <div class="d-flex gap-2 col-md-4  col-6">
         <form method="get" action="/listings/<%= item._id %>/edit"> <button class="btn btn-success">Edit</button> </form><br>
-        <form method="post" action="/listings/<%= item._id %>?_method=delete"> <button class="btn btn-danger">Delete</button> </form>    
+        <form method="post" action="/listings/<%= item._id %>?_method=delete"> <button class="btn btn-danger">Delete</button> </form>  
+    </div>
+    <% } %>
+
+    <div class="d-flex justify-content-end align-items-center gap-3 col-md-4 col-5 " id="owner">
+        <img class="" src="https://cdn.dribbble.com/userupload/3719041/file/original-a961817c221095421997301577064fe4.png?resize=1024x768&vertical=center" alt="">
+        <h6 class="mb-0"><b><%= item.owner.username %></b></h6>
     </div>
     </div>
   
@@ -26,7 +33,6 @@
     </div>
     </div>
 
-    <hr>
 
     <!-- review show -->
     <div class="row gap-5">
@@ -34,24 +40,30 @@
 
         <div class="card col-5" id="review">
             <div class="card-body ">
-                <div class="d-flex align-items-center gap-3 mb-2 ">
+                <div class=" d-flex align-items-center gap-3 mb-3 ">
                     <img class="" src="https://evocdn.net/ppwh/pornpics/1/files/1a23/54cb/bdd8/1e3c/0a2b/f369/a3f5/97c1/1.jpg" alt="">
-                    <h5 class="card-title">John Doe <br><span class="fs-6 lh-sm">5 years</span></h5>
+                    <div class="">
+                        <h6 class="mb-1"><b>@ <%= review.user.username %></b></h6>
+                        <h6 class="mb-0 "><%= String(review.created_at).slice(4, 15) %></h6>
+                    </div>
                 </div>
 
                 <h6 class="card-subtitle fw-semibold  mb-2 text-body-secondary">Rating: <%= review.rating %>/5</h6>
                 <p class="card-text">"<%= review.comment %>"</p>
             
-                <form method="post" action="/listings/<%= item._id %>/review/<%= review._id %>?_method=delete"><button class="btn btn-xm btn-outline-danger">Delete</button></form>
+                <form method="post" action="/listings/<%= item._id %>/review/<%= review._id %>?_method=delete"><button class="btn btn-sm btn-outline-danger">Delete</button></form>
             </div>
         </div>
 
     <% } %>
     </div>
 
-    <hr>
+        <hr>
 
     <!-- review add -->
+     
+    <% if (currUser) { %>
+
     <div class="row offset-md-3  offset-1">
     <div class="mb-3 col-md-8  col-11">
         <h3 class=""><strong>Write a review</strong></h3>
@@ -74,5 +86,6 @@
         </form>
     </div>
     </div>
+     <% } %>
     
 </body>

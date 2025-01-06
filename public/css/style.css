@@ -123,11 +123,23 @@ footer
     padding: 0.2rem 0.8rem;
 }
 
-#review img
+#review img, #owner img
 {
-    border: 0px solid black;
     border-radius: 50%;
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: cover;
+}
+
+#home_img
+{
+    font-size: 15rem;
+    /* background-color: antiquewhite; */
+    padding: 2rem;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
 }

@@ -9,9 +9,17 @@ const ejsMate = require("ejs-mate")
 const ExpressError = require("./utils/error.js")
 const wrapAsync = require("./utils/wrapAsync.js")
 const cookieParser = require("cookie-parser")
+const session = require ("express-session")
+const flash = require("connect-flash")
+
+
 
 const listings = require("./routes/listings.js")
 const reviews = require("./routes/review.js")
+const users = require("./routes/user.js")
+const passport = require("passport")
+const LocalStrategy = require("passport-local")
+const User = require("./models/user.js")
 
 
 // server start
@@ -35,8 +43,39 @@ app.use(express.json())
 app.use(methodOverride("_method"))
 app.engine("ejs", ejsMate)
 app.use(cookieParser("secretCode"))
+app.use(flash())
 
 // ----------------------------------------------------------------------------------------
+
+const sessionOptions = {
+    secret: "secretCode",
+    resave: false,
+    saveUninitialized: true,
+    cookie: 
+    {
+        expires: Date.now() + 7*24*60*60*1000,
+        maxAge: 7*24*60*60*1000,
+        httpOnly: true,
+    }
+}
+
+app.use(session(sessionOptions))
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
+
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+
+app.use((req, res, next)=>
+{
+    res.locals.success = req.flash("success")
+    res.locals.error = req.flash("error")
+    res.locals.currUser = req.user
+    next()
+})
 
 
 
@@ -44,7 +83,24 @@ app.use(cookieParser("secretCode"))
 
 app.use("/listings", listings)
 app.use("/listings/:id/review", reviews)
+app.use("/users", users)
 
+
+// demo
+app.get
+(
+    "/demo",
+    wrapAsync(async (req, res)=>
+    {
+        let demoUser = new User({
+            email: "demo@demo.com",
+            username: "demo",
+        })
+
+        const result = await User.register(demoUser, "demo@123#")
+        res.send(result)
+    })
+)
 
 // home route
 app.get
@@ -52,8 +108,6 @@ app.get
     "/",
     wrapAsync(async (req, res)=>
     {
-        res.cookie("name", "raftaar", {signed: true})
-        console.dir(req.signedCookies)
         res.render("home.ejs")
     })
 )
