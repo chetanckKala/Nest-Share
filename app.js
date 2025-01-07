@@ -1,4 +1,8 @@
-// const exp = require("constants")
+if (process.env.NODE_ENV != "production")
+    require("dotenv").config()
+
+console.log(process.env.OWNER)
+
 const express = require("express")
 const app = express()
 const port = 8080
@@ -11,6 +15,7 @@ const wrapAsync = require("./utils/wrapAsync.js")
 const cookieParser = require("cookie-parser")
 const session = require ("express-session")
 const flash = require("connect-flash")
+
 
 
 

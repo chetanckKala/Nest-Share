@@ -3,7 +3,7 @@
 <body>
 
     <div class="row offset-md-3  offset-1">
-    <form class="col-md-8  col-11 needs-validation" method="post" action="/listings" novalidate >
+    <form class="col-md-8  col-11 needs-validation" method="post" action="/listings" novalidate  enctype="multipart/form-data">
 
         <div class="mb-3">
             <label class="form-label" for="title" >Title <span style="color: red;"><strong> *</strong></span></label>
@@ -39,6 +39,11 @@
         <div class="mb-5">
             <label class="form-label" for="image">Image URL </label>
             <input class="form-control" name="image" type="url" placeholder="image url" id="image" >
+        </div>
+
+        <div class="mb-5">
+            <label class="form-label" for="image">Upload Image </label>
+            <input class="form-control" name="image" type="file" id="image" >
         </div>
 
 

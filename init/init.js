@@ -15,18 +15,8 @@ async function seedDb()
 
     for (let d of data)
         {
-            const listing1 = new Listing
-            (
-                {
-                    title: d.title,
-                    description: d.description,
-                    price: d.price,
-                    location: d.location,
-                    country: d.country,
-                    image: d.image.url,
-                    owner: "677af186cf75d76ce4be0cd6"
-                }
-            )
+            const listing1 = new Listing(d)
+            listing1.owner = "677af186cf75d76ce4be0cd6"
         
             listing1.save()
                 .then( (result)=> {console.log(result)} )

@@ -22,7 +22,7 @@
     <div class="col-md-8 col-11 card mb-3  ">
         <h3 class="card-title"><strong><%= item.title %></strong></h3>
 
-        <img style="aspect-ratio: 11/7; object-fit: cover;"  class="card-img-top rounded-3" src=<%= item.image %> alt="">
+        <img style="aspect-ratio: 11/7; object-fit: cover;"  class="card-img-top rounded-3" src=<%= item.image.url %> alt="">
         
         <div class="card-body">
             <a style="color: rgb(99, 99, 99);" href="https://www.google.com/maps/place/<%= item.location %>"><h6 class="card-subtitle mb-3"><i class="fa-solid fa-location-dot" style="color: #ff385c;"></i>  &nbsp;<%= item.location %>, <%= item.country %></h6></a>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <h6 class="card-subtitle fw-semibold  mb-2 text-body-secondary">Rating: <%= review.rating %>/5</h6>
+                <h6 class="starability-result mb-3" data-rating=<%= review.rating %> ></h6>
                 <p class="card-text">"<%= review.comment %>"</p>
             
                 <form method="post" action="/listings/<%= item._id %>/review/<%= review._id %>?_method=delete"><button class="btn btn-sm btn-outline-danger">Delete</button></form>
@@ -66,18 +66,28 @@
 
     <div class="row offset-md-3  offset-1">
     <div class="mb-3 col-md-8  col-11">
-        <h3 class=""><strong>Write a review</strong></h3>
+        <h3 class="mb-3"><strong>Write a review</strong></h3>
 
         <form class="needs-validation" method="post" action="/listings/<%= item._id %>/review" novalidate>
-            <div>
-                <label class="form-label" for="rating">
-                    Rating <span style="color: red;"><strong> *</strong></span>
-                </label>
-                <input name="rating" class="form-range" type="range" id="rating" min="1" max="5" required>
-            </div>
+            
+            <fieldset class="starability-coinFlip mb-4 mt-2">
+                <h6>Rating <span style="color: red;"><strong> *</strong></span></h6>
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="3" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="rating" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="rating" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="rating" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="rating" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="rating" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+              
 
             <div>
-                <label class="form-label" for="comment">Comment</label>
+                <label class="form-label" for="comment">Comment <span style="color: red;"><strong> *</strong></span></label>
                 <textarea class="form-control" name="comment" id="comment" placeholder="write here..." rows="3" required></textarea>
                 <div class="invalid-feedback">Please fill this field</div>
             </div>
