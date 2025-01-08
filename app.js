@@ -26,7 +26,7 @@ const users = require("./routes/user.js")
 const passport = require("passport")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
-const dbUrl = process.env.ATLAS_DB_URL
+const mongoUrl = process.env.ATLAS_DB_URL
 
 
 
@@ -37,7 +37,7 @@ app.listen(port, ()=> {console.log(">>> server activated on", port , ">>>")})
 // db connection
 async function main() 
 { 
-    await mongoose.connect(dbUrl) 
+    await mongoose.connect(mongoUrl) 
     console.log(">>> db connected >>>")
 }
 main()
@@ -58,7 +58,7 @@ app.use(flash())
 
 // mongo session
 const store = mongoStore.create({
-    mongoUrl: dbUrl,
+    mongoUrl: mongoUrl,
     crypto: { secret: process.env.SECRET },
     touchAfter: 24*60*60, // to update session info after 24 hours
 })
