@@ -28,7 +28,12 @@
             <a style="color: rgb(99, 99, 99);" href="https://www.google.com/maps/place/<%= item.location %>"><h6 class="card-subtitle mb-3"><i class="fa-solid fa-location-dot" style="color: #ff385c;"></i>  &nbsp;<%= item.location %>, <%= item.country %></h6></a>
             <p class="card-text"><%= item.description %></p>
 
-            <button class="btn btn-outline-dark">₹ <%= item.price.toLocaleString() %></button>
+            <button class="btn btn-outline-dark mb-5">₹ <%= item.price.toLocaleString() %></button>
+            <!-- <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29117.8576890988!2d75.6324465!3d24.1811226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396454942b7ad503%3A0x559e1b2d2c58e3d6!2sshiv%20mandir!5e0!3m2!1sen!2sin!4v1736283564498!5m2!1sen!2sin" 
+            style="border:0; aspect-ratio: 11/7;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+            class="card-img-top rounded-3">
+            </iframe> -->
         </div>
     </div>
     </div>

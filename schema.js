@@ -8,7 +8,9 @@ const listingSchema = joi.object(
         description: joi.string().allow("", null),
         location: joi.string().required(),
         country: joi.string().required(),
-        image: joi.string().allow("", null),
+        image: {
+            url: joi.string().allow("", null),
+        }
     }
 )
 

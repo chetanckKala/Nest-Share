@@ -21,10 +21,15 @@ module.exports.createListing = async (req, res, next)=>
     const item = new Listing(req.body)
     item.owner = req.user
 
-    const url = req.file.path
-    const filename = req.file.filename
+    // console.log(req.file)
 
-    item.image = {url, filename}
+    if (req.file)
+    {
+        const url = req.file.path
+        const filename = req.file.filename
+
+        item.image = {url, filename}
+    }
     
     await item.save()
 
@@ -72,7 +77,14 @@ module.exports.editListing = async (req, res)=>
     }
 
     else if (req.user._id.equals(item.owner._id))
-        res.render("edit.ejs", {item})
+    {
+        let originalUrl = item.image.url
+        let modifiedUrl = originalUrl.replace("/upload", "/upload")
+
+        console.log(originalUrl)
+
+        res.render("edit.ejs", {item, modifiedUrl})
+    }
 
     else
     {
@@ -94,7 +106,18 @@ module.exports.updateListing = async (req, res, next)=>
     }
 
     await Listing.findByIdAndUpdate(req.params.id, req.body, {new: true, runValidators: true})
-    await Listing.findByIdAndUpdate(req.params.id, {image: {url: req.body.image}})
+
+    if ( req.file)
+    {
+        const url = req.file.path
+        const filename = req.file.filename
+        await Listing.findByIdAndUpdate(req.params.id, {image: {url, filename}})
+    }
+
+    // else
+    //     await Listing.findByIdAndUpdate(req.params.id, {image: {url: req.body.image.url}})
+
+    
     req.flash("success", "Successfully updated the listing!")
     res.redirect(`/listings/${item._id}`)
 }

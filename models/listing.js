@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const Review = require("./review.js")
 const { string } = require("joi")
 
-async function main() { await mongoose.connect("mongodb://127.0.0.1:27017/nest_share") }
-main().then(()=> {console.log(">>> mongodb connection established >>>")}).catch((err)=> {console.log(">>> mongodb connection failed <<<")})
+// async function main() { await mongoose.connect("mongodb://127.0.0.1:27017/nest_share") }
+// main().then(()=> {console.log(">>> mongodb connection established >>>")}).catch((err)=> {console.log(">>> mongodb connection failed <<<")})
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------
 

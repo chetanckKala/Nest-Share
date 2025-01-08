@@ -51,8 +51,8 @@ router.post
 (
     "/", 
     checkAuth,
+    upload.single("pic"),
     validateListing,
-    upload.single("image"),
     wrapAsync(listingController.createListing)
 )
 
@@ -80,6 +80,7 @@ router.patch
 (
     "/:id", 
     checkAuth,
+    upload.single("pic"),
     validateListing,
     wrapAsync(listingController.updateListing)
 )

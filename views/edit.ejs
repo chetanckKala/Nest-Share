@@ -5,7 +5,7 @@
 <body>
 
     <div class="row offset-md-3  offset-1">
-    <form class="col-md-8  col-11 needs-validation" method="post" action="/listings/<%= item._id %>?_method=patch" novalidate>
+    <form class="col-md-8  col-11 needs-validation" method="post" action="/listings/<%= item._id %>?_method=patch" novalidate enctype="multipart/form-data" enctype="application/x-www-form-urlencoded">
 
         <div class="mb-3">
             <label class="form-label" for="title">Title <span style="color: red;"> *</span></label>
@@ -40,8 +40,18 @@
         </div>
 
         <div class="mb-5">
-            <label class="form-label" for="image">Image URL </label>
-            <input class="form-control" name="image" type="url" value="<%= item.image.url %>" id="image" >
+            <label class="form-label" for="image[url]">Image URL </label>
+            <input class="form-control" name="image[url]" type="url" value="<%= item.image.url %>" id="image[url]" >
+        </div>
+
+        <div class="mb-5">
+            <label class="form-label" for="pic">Upload Image </label>
+            <input class="form-control" name="pic" type="file" id="pic" >
+        </div>
+
+        <div>
+            <h6>Original Image</h6>
+            <img style="aspect-ratio: 11/7; object-fit: cover;"  class="card-img-top rounded-3 mb-4" src=<%= modifiedUrl %> alt="">
         </div>
 
 

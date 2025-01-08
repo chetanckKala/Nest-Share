@@ -14,6 +14,7 @@ const ExpressError = require("./utils/error.js")
 const wrapAsync = require("./utils/wrapAsync.js")
 const cookieParser = require("cookie-parser")
 const session = require ("express-session")
+const mongoStore = require("connect-mongo")
 const flash = require("connect-flash")
 
 
@@ -25,6 +26,9 @@ const users = require("./routes/user.js")
 const passport = require("passport")
 const LocalStrategy = require("passport-local")
 const User = require("./models/user.js")
+const dbUrl = process.env.ATLAS_DB_URL
+
+
 
 
 // server start
@@ -33,7 +37,7 @@ app.listen(port, ()=> {console.log(">>> server activated on", port , ">>>")})
 // db connection
 async function main() 
 { 
-    await mongoose.connect("mongodb://127.0.0.1:27017/nest_share") 
+    await mongoose.connect(dbUrl) 
     console.log(">>> db connected >>>")
 }
 main()
@@ -52,7 +56,20 @@ app.use(flash())
 
 // ----------------------------------------------------------------------------------------
 
+// mongo session
+const store = mongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: { secret: process.env.SECRET },
+    touchAfter: 24*60*60, // to update session info after 24 hours
+})
+
+store.on( "error", (err) => 
+{
+    console.log("error in mongo store", err)
+})
+
 const sessionOptions = {
+    store, 
     secret: "secretCode",
     resave: false,
     saveUninitialized: true,
